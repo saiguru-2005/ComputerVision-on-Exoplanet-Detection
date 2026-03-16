@@ -1,0 +1,243 @@
+
+* These results made use of data provided by the Yale-SFSU-Lowell EXPRES team using the EXtreme PREcision Spectrograph 
+at the Lowell Discovery telescope, Lowell Observatory. Lowell is a private, non-profit institution dedicated to astrophysical 
+research and public appreciation of astronomy and operates the LDT in partnership with Boston University, the University of Maryland,
+ the University of Toledo, Northern Arizona University and Yale University. EXPRES was designed and built at Yale with financial support 
+ from MRI-1429365, NSF ATI-1509436 and Yale University. Research with EXPRES is possible thanks to the generous support from NSF 2009528, 
+ NSF 1616086, NASA 80NSSC18K0443, NSF AST-2009528, the Heising-Simons Foundation, and an anonymous donor in the Yale alumni community.
+  
+Description: This code demonstrates the concept and procedures of applying Computer Vision techniques to analyze stellar spectra
+ and extract Radial Velocities (RV) for exoplanet detection. 
+
+How to run the demonstration: With all the data files in place, run "CV_Approach_for_RV_Extraction_Code_Demo.py".
+
+Code output: 
+
+![Industry CBC method RVs](output_images/6.png) 
+
+
+![Periodogram: CV method vs. Industry CBC method](output_images/5.png)
+
+**********************************************************************************************************************
+
+                  A Computer Vision Approach to Radial Velocity Extraction for Exoplanet Detection                  
+                                                     Demo Code                                
+
+**********************************************************************************************************************
+
+What is Radial Velocity (RV)?
+
+Radial Velocity (RV) is a measure of the velocity of an object along the line of sight of the observer.
+In astronomy, it is commonly used to detect exoplanets by observing the Doppler shift in the spectrum of a star as 
+it moves towards or away from us. When a star has a planet orbiting it, the gravitational pull of the planet causes the star to wobble slightly.
+This wobble changes the star's velocity along our line of sight, which can be detected as changes in the star's spectral lines.
+
+Doppler effect, refers to the change in frequency or wavelength of a wave in relation to an observer who is moving relative to the wave source
+In astronomy, the Doppler shift is used to measure the radial velocity of stars and galaxies. When a star moves towards us, 
+its light shifts to shorter wavelengths (blue shift). When it moves away, its light shifts to longer wavelengths (red shift).
+This effect is used to detect exoplanets by observing the periodic changes in the star's velocity as it wobbles
+due to the gravitational pull of an orbiting planet.
+
+gen_chunks: Generates chunks from the dataset based on the specified parameters and saves the average spectrum along with chunk indices.
+
+find_local_extremum: Identifies local peaks (extrema) in the given array and determines the start and stop pixels for each chunk.
+
+make_directories: Creates directories if they do not exist.
+
+genRawSpectra_byChunks: Generates raw spectra images by chunks and saves them.
+
+find_multiples: Finds multiples of numbers within a limit.
+
+mask: Applies a mask to the input grayscale 2D array.
+
+features_matching: Performs feature matching and perspective transformation between two images using SIFT.
+
+
+
+Image-Wise Explanation:
+
+Image 1: (Averaged spectrum plot) Demonstrates the quality and consistency of the baseline spectrum computed from multiple exposures.
+
+Image 2: (Absorption line selection) Highlights the detected absorption lines that serve as the basis for chunk extraction.
+
+Images 3–5: (Raw spectrum images) Show both the template and individual spectral chunks, illustrating the variability 
+across different FITS files.
+
+Image 6: (Feature matching visualization) Displays how key features are matched between the template and test images, 
+underpinning the shift calculations.
+
+Image 7: (RV time-series plot) Presents the computed radial velocities from the CV method, enabling direct comparison 
+with the industry standard.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**************** Step 1: Calculate the average spectrum and save data to a pickle file *******************************
+Working on Order #40
+Working on Order #41
+Working on Order #42
+Working on Order #43
+Working on Order #44
+Working on Order #45
+Working on Order #46
+Working on Order #47
+Working on Order #48
+Working on Order #49
+Working on Order #50
+Working on Order #51
+Working on Order #52
+Working on Order #53
+Working on Order #54
+Working on Order #55
+Working on Order #56
+Working on Order #57
+Working on Order #58
+Working on Order #59
+Working on Order #60
+
+************* Step 2: Find all good absorption lines of the average spectra and save the data  *********************
+Directories were created successfully at path: 
+101501//ChunkSelectionImg//v2.4_ao4_nMin40_nMax60_cutoff0.75_widthMax48_heightMin0.3//
+
+Working on Order #40 
+Working on Order #41 
+Working on Order #42 
+Working on Order #43 
+Working on Order #44 
+Working on Order #45 
+Working on Order #46 
+Working on Order #47 
+Working on Order #48 
+Working on Order #49 
+Working on Order #50 
+Working on Order #51 
+Working on Order #52 
+Working on Order #53 
+Working on Order #54 
+Working on Order #55 
+Working on Order #56 
+Working on Order #57 
+Working on Order #58 
+Working on Order #59 
+Working on Order #60 
+
+************** Step 3: Generate raw average spectrum and individual spectrum images for good lines *****************
+AvgSpectrum = AvgSpectrum_with_Chunks_ao4_nMin40_nMax60_cutoff0.75_widthMax48_heightMin0.3_2.4, w_oversampling = 2
+Directories were created successfully at path: 
+101501//RawSpectrumImg//AvgSpectrum_with_Chunks_ao4_nMin40_nMax60_cutoff0.75_widthMax48_heightMin0.3_2.4_v100_w_OS2_uncrtyFalse_grayscale//
+
+Working on Order #40
+Working on Order #41
+Working on Order #42
+Working on Order #43
+Working on Order #44
+Working on Order #45
+Working on Order #46
+Working on Order #47
+Working on Order #48
+Working on Order #49
+Working on Order #50
+Working on Order #51
+Working on Order #52
+Working on Order #53
+Working on Order #54
+Working on Order #55
+Working on Order #56
+Working on Order #57
+Working on Order #58
+Working on Order #59
+Working on Order #60
+
+************* Step 4: Apply enhancement, calculate shift on all good lines, and save the data  *********************
+n_start=40, n_stop=60, chunk_file=AvgSpectrum_with_Chunks_ao4_nMin40_nMax60_cutoff0.75_widthMax48_heightMin0.3_2.4, WO=2, g_threshold=1
+Directories were created successfully at path: 
+RV//101501//AvgSpectrum_with_Chunks_ao4_nMin40_nMax60_cutoff0.75_widthMax48_heightMin0.3_2.4
+
+Working on fits file #0 - 101501_190210.1141.fits...
+Working on fits file #1 - 101501_190210.1153.fits...
+Working on fits file #2 - 101501_190210.1154.fits...
+Working on fits file #3 - 101501_190210.1155.fits...
+Working on fits file #4 - 101501_190317.1083.fits...
+Working on fits file #5 - 101501_190317.1084.fits...
+Working on fits file #6 - 101501_190317.1085.fits...
+Working on fits file #7 - 101501_190427.1068.fits...
+Working on fits file #8 - 101501_190503.1087.fits...
+Working on fits file #9 - 101501_190505.1069.fits...
+Working on fits file #10 - 101501_190506.1076.fits...
+Working on fits file #11 - 101501_190513.1121.fits...
+Working on fits file #12 - 101501_190518.1122.fits...
+Working on fits file #13 - 101501_190531.1107.fits...
+Working on fits file #14 - 101501_190607.1069.fits...
+Working on fits file #15 - 101501_190607.1070.fits...
+Working on fits file #16 - 101501_190608.1082.fits...
+Working on fits file #17 - 101501_190612.1068.fits...
+Working on fits file #18 - 101501_191107.1170.fits...
+Working on fits file #19 - 101501_191107.1171.fits...
+Working on fits file #20 - 101501_191109.1267.fits...
+Working on fits file #21 - 101501_191109.1268.fits...
+Working on fits file #22 - 101501_191212.1139.fits...
+Working on fits file #23 - 101501_191212.1140.fits...
+Working on fits file #24 - 101501_191212.1141.fits...
+Working on fits file #25 - 101501_191212.1142.fits...
+Working on fits file #26 - 101501_200228.1094.fits...
+Working on fits file #27 - 101501_200228.1095.fits...
+Working on fits file #28 - 101501_200624.1066.fits...
+Working on fits file #29 - 101501_200624.1067.fits...
+Working on fits file #30 - 101501_200624.1068.fits...
+Working on fits file #31 - 101501_200628.1090.fits...
+Working on fits file #32 - 101501_200628.1091.fits...
+Working on fits file #33 - 101501_200628.1092.fits...
+Working on fits file #34 - 101501_200630.1093.fits...
+Working on fits file #35 - 101501_200630.1094.fits...
+Working on fits file #36 - 101501_200630.1096.fits...
+Working on fits file #37 - 101501_200701.1071.fits...
+Working on fits file #38 - 101501_200701.1072.fits...
+Working on fits file #39 - 101501_200701.1073.fits...
+Working on fits file #40 - 101501_200703.1070.fits...
+Working on fits file #41 - 101501_200703.1071.fits...
+Working on fits file #42 - 101501_200703.1072.fits...
+Working on fits file #43 - 101501_201126.1070.fits...
+Working on fits file #44 - 101501_201126.1071.fits...
+
+************* Step 5: Calculate and plot RVs for all previously saved pickle files in a folder *********************
+Directories were created successfully at path: 
+RV//101501//AvgSpectrum_with_Chunks_ao4_nMin40_nMax60_cutoff0.75_widthMax48_heightMin0.3_2.4//RV_Plots
+
+Pickle File = v100_w_OS2_uncrtyFalse_n40-60_LnGap[7, 11, 23, 37, 47]_gThrhld1_MTyp0_Loc0_discrt0.05_int200_fitsCnt45_CETrue.pickle
+    RV (RMS) = 6.383050257148037
+
+************** Step 6: Plot industry CBC method RVs ****************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+******************** Step 7: Plot and compare Periodogram of both CV and industry methods **************************
+
+Task Completed! Elapsed time: 145.618531 seconds
+
+
+Radial Velocity (RV): A measure of the velocity of an object along the line of sight, 
+used to detect exoplanets by observing the Doppler shift in a star's spectrum
+
+Code Explanation: The code includes functions for generating data chunks, identifying local peaks, creating directories, 
+generating raw spectra images, finding multiples, applying masks, 
+and performing feature matching. These steps are essential for processing and analyzing RV data using a computer vision approach.
