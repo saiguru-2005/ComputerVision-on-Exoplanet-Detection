@@ -13,10 +13,11 @@ How to run the demonstration: With all the data files in place, run "CV_Approach
 
 Code output: 
 
-![Industry CBC method RVs](output_images/6.png) 
+![Industry CBC method RVs]
 
 
-![Periodogram: CV method vs. Industry CBC method](output_images/5.png)
+![Periodogram: CV method vs. Industry CBC method]
+
 
 **********************************************************************************************************************
 
